@@ -1,9 +1,0 @@
-# dependencies
-/node_modules
-
-#secrets
-config.env
-
-#others
-/.tmpdrivedownload
-/.tmpdriveupload
