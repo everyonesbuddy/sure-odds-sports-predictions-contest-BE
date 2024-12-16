@@ -4,23 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r esm server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.3",
     "express-jwt": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.2",
+    "mongoose": "^8.6.2",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15",
-    "stripe": "^8.203.0"
+    "pkg.json": "^2.0.8",
+    "stripe": "^8.203.0",
+    "validator": "^13.12.0"
   }
 }

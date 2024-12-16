@@ -1,31 +1,19 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import { readdirSync } from "fs";
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv")
 
-const morgan = require("morgan");
-require("dotenv").config();
-
-const app = express();
+dotenv.config({ path: "./config.env" });
+const app = require('./app')
 
 //db
+const db = process.env.DB_URL.replace("<db_username>", process.env.DB_USERNAME).replace("<db_password>",process.env.DB_PASSWORD)
+
+mongoose.set('strictQuery', true);
+
 mongoose
-  .connect(process.env.DATABASE)
-  .then(() => console.log("DB Connected"))
-  .catch((err) => console.log("DB connection error", err));
-
-//middleware
-app.use(express.json({ limit: "5mb" }));
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH"],
-    credentials: true,
-  })
-);
-
-//autoload routes
-readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+  .connect(db)
+  .then(() => console.log("Database Connected ✅"))
+  .catch((err) => console.log("Database connection error 🚫", err));
 
 //listen
 const port = process.env.PORT || 5000;
