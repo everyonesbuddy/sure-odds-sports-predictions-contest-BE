@@ -5,5 +5,5 @@
 config.env
 
 #others
-/tmpdrivedownload
-/tmpdriveupload
+/.tmpdrivedownload
+/.tmpdriveupload
