@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
       },
     },
   },
+  passwordChangedAt: Date,
   role: {
     type: String,
     required: [true, 'A user must have a role'],
@@ -48,6 +49,24 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
 });
+
+userSchema.methods.comparePasswords = async function (
+  unencryptedPassword,
+  encryptedPassword
+) {
+  return await bcrypt.compare(unencryptedPassword, encryptedPassword);
+};
+
+userSchema.methods.checkIfPasswordChanged = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
+};
 
 const User = new mongoose.model('User', userSchema);
 module.exports = User;

@@ -4,6 +4,12 @@ const userController = require('../controllers/userController');
 
 const router = express.Router();
 
+router.use(authController.protect);
+
+router.route('/updatePassword').patch(userController.updatePassword);
+
+router.use(authController.restrictTo('admin'));
+
 router
   .route('/')
   .get(userController.getAllUsers)
