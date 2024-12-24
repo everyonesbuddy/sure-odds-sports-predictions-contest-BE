@@ -7,3 +7,4 @@ config.env
 #others
 .tmp.drivedownload/
 .tmp.driveupload/
+twilio_2FA_recovery_code.txt
