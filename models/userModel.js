@@ -3,6 +3,18 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
+const contests = new mongoose.Schema({
+  id: {
+    type: String,
+    required: [true, 'A Contest must have an id'],
+  },
+  isPayed: {
+    type: Boolean,
+    default: false,
+  },
+  pick: Number,
+});
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,6 +43,7 @@ const userSchema = new mongoose.Schema({
       },
     },
   },
+  registeredContests: [contests],
   passwordChangedAt: Date,
   role: {
     type: String,
