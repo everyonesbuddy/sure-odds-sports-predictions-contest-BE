@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const adminRouter = require('./routes/adminRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -14,6 +15,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json({ limit: '5mb' }));
+
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: '*',

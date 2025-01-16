@@ -18,6 +18,12 @@ const createSendToken = (user, statusCode, res) => {
 
   user.password = undefined;
 
+  res.cookie('jwt-token', token, {
+    maxAge: 3600000, // Cookie will expire in 1 hour
+    httpOnly: true, // Prevent client-side scripts from accessing the cookie
+    secure: true, // Send only over HTTPS
+  });
+
   res.status(statusCode).json({
     status: 'success',
     data: {
