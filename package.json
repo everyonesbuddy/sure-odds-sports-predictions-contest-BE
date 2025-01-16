@@ -7,7 +7,7 @@
     "start": "nodemon server.js"
   },
   "engines": {
-    "node": "10.1.0",
+    "node": "v21.5.0",
     "npm": "10.1.0"
   },
   "keywords": [],
