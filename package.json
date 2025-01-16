@@ -6,6 +6,10 @@
   "scripts": {
     "start": "nodemon server.js"
   },
+  "engines": {
+    "node": "10.1.0",
+    "npm": "10.1.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,7 +24,7 @@
     "express": "^4.17.3",
     "express-jwt": "^6.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^8.6.2",
+    "mongoose": "^6.13.6",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
     "pkg.json": "^2.0.8",
