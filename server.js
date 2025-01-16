@@ -7,7 +7,6 @@ const app = require('./app');
 
 //db
 const db = process.env.DB_URL;
-console.log(db);
 
 mongoose.set('strictQuery', true);
 
