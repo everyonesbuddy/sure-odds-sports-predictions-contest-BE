@@ -21,6 +21,11 @@ const userSchema = new mongoose.Schema({
     required: [true, 'a user most have a name'],
     unique: true,
   },
+  userName: {
+    type: String,
+    required: [true, 'a user most have a username'],
+    unique: true,
+  },
   email: {
     type: String,
     lowercase: true,
