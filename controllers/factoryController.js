@@ -63,6 +63,7 @@ exports.updateOne = (model) => {
     if (model === User) {
       req.body = filterObj(
         req.body,
+        'userName',
         'role',
         'password',
         'passwordConfirm'
