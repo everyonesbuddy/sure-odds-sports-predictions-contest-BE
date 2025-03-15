@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router.route('/').post(pickController.createPick);
+router.route('/weeklypickemstore1').post(pickController.createPick);
 
 module.exports = router;
