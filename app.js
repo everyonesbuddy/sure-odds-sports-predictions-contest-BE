@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const adminRouter = require('./routes/adminRoutes');
 const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
-const pickRouter = require('./routes/pickRoutes');
+const pickem1Router = require('./routes/pickem1Routes');
 const contestRouter = require('./routes/contestRoutes');
 const errController = require('./controllers/errController');
 
@@ -31,7 +31,7 @@ app.use(
 app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/pickem1', pickRouter);
+app.use('/api/v1/pickem1', pickem1Router);
 app.use('/api/v1/contests', contestRouter);
 
 app.use(errController);
