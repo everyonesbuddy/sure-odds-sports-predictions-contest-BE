@@ -31,7 +31,7 @@ app.use(
 app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/picks', pickRouter);
+app.use('/api/v1/pickem1', pickRouter);
 app.use('/api/v1/contests', contestRouter);
 
 app.use(errController);

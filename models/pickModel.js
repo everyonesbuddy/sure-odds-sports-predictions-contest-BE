@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pickSchema = new mongoose.Schema({
+const pickem1Schema = new mongoose.Schema({
   league: {
     type: String,
     required: [true, 'a pick must have a league'],
@@ -56,5 +56,5 @@ const pickSchema = new mongoose.Schema({
   },
 });
 
-const Picks = new mongoose.model('Pick', pickSchema);
-module.exports = Picks;
+const Pickem1 = new mongoose.model('Pickem1', pickem1Schema);
+module.exports = Pickem1;
