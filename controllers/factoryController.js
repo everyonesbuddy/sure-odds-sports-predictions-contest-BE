@@ -42,8 +42,10 @@ exports.getOne = (model) => {
 
 exports.createOne = (model) => {
   return catchAsync(async (req, res, next) => {
-    const filteredBody = filterObj(req.body, 'role');
-    req.body = filteredBody;
+    if (model === User) {
+      const filteredBody = filterObj(req.body, 'role');
+      req.body = filteredBody;
+    }
 
     const doc = await model.create(req.body);
 
