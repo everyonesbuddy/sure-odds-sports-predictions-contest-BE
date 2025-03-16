@@ -6,6 +6,11 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router.route('/').post(pickem1Controller.createPick);
+router
+  .route('/')
+  .get(pickem1Controller.getAllPicks)
+  .post(pickem1Controller.createPick);
+
+router.route('/:id').get(pickem1Controller.getPick);
 
 module.exports = router;
