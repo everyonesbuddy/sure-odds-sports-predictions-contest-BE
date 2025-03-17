@@ -17,6 +17,9 @@ const pickem1Schema = new mongoose.Schema({
     type: String,
     // required: [true, 'a pick must have a pick type'],
   },
+  playerPicked: {
+    type: String,
+  },
   selectedGameId: {
     type: String,
     // required: [true, 'a pick must have a GameId'],
