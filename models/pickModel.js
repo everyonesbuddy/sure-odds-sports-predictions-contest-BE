@@ -54,7 +54,7 @@ const pickem1Schema = new mongoose.Schema({
   },
   betResult: {
     type: String,
-    enum: ['null', 'won', 'lost'],
+    enum: [null, 'won', 'lost'],
     default: null,
   },
 });
