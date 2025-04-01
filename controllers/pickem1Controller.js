@@ -65,6 +65,12 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
       const scoresResponse = await axios.get(scoresUrl);
       const scores = scoresResponse.data;
 
+      const game = scores.find((g) => g.id === gameId);
+      if (!game || !game.completed) {
+        console.log(`Game ${gameId} is not completed. Skipping...`);
+        continue; // Skip this iteration and move to the next pick
+      }
+
       const winningTeam = getWinningTeam(scores, gameId);
       const result = winningTeam === pickedTeam ? 'won' : 'lost';
       console.log(
@@ -167,10 +173,11 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
 
   // Helper function to check if the date is six hours old
   function isSixHoursOld(dateString) {
-    const pickDate = new Date(dateString);
-    const sixHoursAgo = new Date();
-    sixHoursAgo.setHours(sixHoursAgo.getHours() - 6);
-    return pickDate < sixHoursAgo; // Returns true if pickDate is more than 6 hours old
+    // const pickDate = new Date(dateString);
+    // const sixHoursAgo = new Date();
+    // sixHoursAgo.setHours(sixHoursAgo.getHours() - 6);
+    // return pickDate < sixHoursAgo; // Returns true if pickDate is more than 6 hours old
+    return true;
   }
 
   // Helper function to get the winning team from the scores
