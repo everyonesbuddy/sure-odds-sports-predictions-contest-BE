@@ -5,10 +5,6 @@ const pickem1Schema = new mongoose.Schema({
     type: String,
     // required: [true, 'a pick must have a league'],
   },
-  market: {
-    type: String,
-    // required: [true, 'a pick must have a market'],
-  },
   odds: {
     type: Number,
     // required: [true, 'a pick must have odds'],
@@ -16,9 +12,6 @@ const pickem1Schema = new mongoose.Schema({
   pickType: {
     type: String,
     // required: [true, 'a pick must have a pick type'],
-  },
-  playerPicked: {
-    type: String,
   },
   selectedGameId: {
     type: String,
@@ -28,13 +21,9 @@ const pickem1Schema = new mongoose.Schema({
     type: String,
     // required: [true, 'a pick must have a team'],
   },
-  propLine: {
+  spreadLine: {
     type: Number,
     // required: [true, 'a pick must have a prop line'],
-  },
-  propOverOrUnder: {
-    type: String,
-    // required: [true, 'a pick must have a prop over or under'],
   },
   participantsUsername: {
     type: String,
