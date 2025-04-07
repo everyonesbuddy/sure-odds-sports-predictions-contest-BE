@@ -30,6 +30,7 @@
     "mongoose": "^6.13.6",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "pkg.json": "^2.0.8",
     "stripe": "^8.203.0",
     "validator": "^13.12.0"

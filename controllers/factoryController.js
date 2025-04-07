@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const User = require('../models/userModel');
+const Code = require('../models/codeModel');
 const authController = require('./authController');
 
 const filterObj = (obj, ...unWantedProps) => {
@@ -70,6 +71,10 @@ exports.updateOne = (model) => {
         'password',
         'passwordConfirm'
       );
+    }
+
+    if (model === Code) {
+      req.body = filterObj(req.body, 'code');
     }
 
     const doc = await model.findByIdAndUpdate(req.params.id, req.body, {
