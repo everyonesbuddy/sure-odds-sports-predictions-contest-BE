@@ -31,15 +31,15 @@ app.use(
 );
 
 // Scheduled task
-cron.schedule('32 0 * * *', async () => {
+cron.schedule('0 2 * * *', async () => {
   try {
     console.log('Running scheduled task...');
 
     // Replace with your actual request
     const response = await axios.patch(
-      'http://localhost:5000/api/v1/pickem1',
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem1',
       {
-        url: 'http://localhost:5000',
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
       }
     );
 
