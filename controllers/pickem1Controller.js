@@ -26,6 +26,17 @@ exports.createPick = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getUsersPicks = catchAsync(async (req, res, next) => {
+  const username = req.body.username;
+  const docs = await Pickem1.find({ participantsUsername: username });
+
+  res.status(200).json({
+    status: 'success',
+    results: docs.length,
+    docs,
+  });
+});
+
 exports.betPredictionResolver = catchAsync(async (req, res) => {
   const pickem1Url = req.body.url; // Get the URL from the request body
   const oddsApiTemplate =

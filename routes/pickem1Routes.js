@@ -10,6 +10,8 @@ router
   .post(pickem1Controller.createPick)
   .patch(pickem1Controller.betPredictionResolver);
 
+router.route('/user').get(pickem1Controller.getUsersPicks);
+
 router.route('/:id').get(pickem1Controller.getPick);
 
 module.exports = router;

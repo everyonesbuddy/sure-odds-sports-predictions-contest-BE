@@ -1,6 +1,7 @@
 const factoryController = require('./factoryController');
 const Code = require('../models/codeModel');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.getAllCodes = factoryController.getAll(Code);
 
@@ -28,3 +29,20 @@ exports.createCodes = catchAsync(async (req, res, next) => {
 exports.updateCode = factoryController.updateOne(Code);
 
 exports.deleteCode = factoryController.deleteOne(Code);
+
+exports.checkCode = catchAsync(async (req, res, next) => {
+  const code = req.body.code;
+  const doc = await Code.findOne({ code });
+
+  if (!doc || doc.isUsed === true) {
+    return next(new AppError('Invalid or already used code.', 400));
+  }
+
+  doc.isUsed = true;
+  await doc.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: 'success',
+    doc,
+  });
+});

@@ -11,6 +11,8 @@ router
   .get(codeController.getAllCodes)
   .post(codeController.createCodes);
 
+router.route('/submitCode').post(codeController.checkCode);
+
 router
   .route('/:id')
   .get(codeController.getCode)
