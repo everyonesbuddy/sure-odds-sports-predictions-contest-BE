@@ -19,10 +19,12 @@ const pickem1Schema = new mongoose.Schema({
   },
   teamPicked: {
     type: String,
+    select: false,
     // required: [true, 'a pick must have a team'],
   },
   spreadLine: {
     type: Number,
+    select: false,
     // required: [true, 'a pick must have a prop line'],
   },
   participantsUsername: {

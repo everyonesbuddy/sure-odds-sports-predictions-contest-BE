@@ -12,6 +12,8 @@ router
 
 router.route('/user').post(pickem1Controller.getUsersPicks);
 
+router.route('/filtered').get(pickem1Controller.getAllFilteredPicks);
+
 router.route('/:id').get(pickem1Controller.getPick);
 
 module.exports = router;

@@ -2,6 +2,8 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Code = require('../models/codeModel');
+const Pickem1 = require('../models/pickem1Model');
+const Pickem2 = require('../models/pickem2Model');
 const authController = require('./authController');
 
 const filterObj = (obj, ...unWantedProps) => {
@@ -16,7 +18,12 @@ exports.filterObj = filterObj;
 
 exports.getAll = (model) => {
   return catchAsync(async (req, res) => {
-    const docs = await model.find();
+    let docs;
+    if (model === Pickem1 || model === Pickem2) {
+      docs = await model.find().select('+teamPicked +spreadLine');
+    } else {
+      docs = await model.find();
+    }
 
     res.status(200).json({
       status: 'success',
