@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const pickem2Schema = new mongoose.Schema({
   league: {
     type: String,
+    select: false,
     // required: [true, 'a pick must have a league'],
   },
   odds: {
@@ -11,10 +12,12 @@ const pickem2Schema = new mongoose.Schema({
   },
   pickType: {
     type: String,
+    select: false,
     // required: [true, 'a pick must have a pick type'],
   },
   selectedGameId: {
     type: String,
+    select: false,
     // required: [true, 'a pick must have a GameId'],
   },
   teamPicked: {
@@ -41,6 +44,7 @@ const pickem2Schema = new mongoose.Schema({
   },
   email: {
     type: String,
+    select: false,
     // required: [true, 'a pick must have an email'],
   },
   betResult: {

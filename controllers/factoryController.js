@@ -20,7 +20,11 @@ exports.getAll = (model) => {
   return catchAsync(async (req, res) => {
     let docs;
     if (model === Pickem1 || model === Pickem2) {
-      docs = await model.find().select('+teamPicked +spreadLine');
+      docs = await model
+        .find()
+        .select(
+          '+teamPicked +spreadLine +league +pickType +selectedGameId +email'
+        );
     } else {
       docs = await model.find();
     }

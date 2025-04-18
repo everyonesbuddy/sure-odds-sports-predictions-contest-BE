@@ -4,9 +4,11 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
+router.use(authController.protect);
+
 router
   .route('/')
-  .get(pickem1Controller.getAllPicks)
+  .get(authController.restrictTo('admin'), pickem1Controller.getAllPicks)
   .post(pickem1Controller.createPick)
   .patch(pickem1Controller.betPredictionResolver);
 
