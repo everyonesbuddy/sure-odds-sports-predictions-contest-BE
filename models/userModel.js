@@ -33,6 +33,18 @@ const userSchema = new mongoose.Schema({
     required: [true, 'a user must have an email'],
     validate: [validator.isEmail, 'please provide a valid email address'],
   },
+  twitter: {
+    type: String,
+    unique: true,
+  },
+  reddit: {
+    type: String,
+    unique: true,
+  },
+  bluesky: {
+    type: String,
+    unique: true,
+  },
   password: {
     type: String,
     required: [true, 'A user must have a password'],
