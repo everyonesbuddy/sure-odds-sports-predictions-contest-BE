@@ -56,13 +56,16 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
   // Fetch picks from Sure Odds API
   const fetchPicks = async () => {
     try {
-      return await axios.get(`${pickem1Url}/api/v1/pickem1`);
+      return await axios.get(
+        `${pickem1Url}/api/v1/pickem1/getPicksForPredicter`
+      );
     } catch (error) {
       console.log(error);
     }
   };
 
   const response = await fetchPicks();
+  console.log('🚫🚫🚫🚫', response);
 
   const picks = response.data.data;
 
