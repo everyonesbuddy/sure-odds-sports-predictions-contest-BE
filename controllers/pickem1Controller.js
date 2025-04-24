@@ -65,7 +65,6 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
   };
 
   const response = await fetchPicks();
-  console.log('🚫🚫🚫🚫', response);
 
   const picks = response.data.data;
 
