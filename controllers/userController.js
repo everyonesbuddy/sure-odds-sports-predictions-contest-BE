@@ -9,6 +9,7 @@ exports.getUser = factoryController.getOne(User);
 exports.createUser = factoryController.createOne(User);
 exports.updateUser = factoryController.updateOne(User);
 exports.deleteUser = factoryController.deleteOne(User);
+exports.setUserId = factoryController.setId(User);
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = req.user;

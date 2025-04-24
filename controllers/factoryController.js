@@ -122,3 +122,12 @@ exports.deleteOne = (model) => {
     });
   });
 };
+
+exports.setId = (model) => {
+  return catchAsync(async (req, res, next) => {
+    if (model === User) {
+      req.params.id = req.user._id;
+    }
+    next();
+  });
+};
