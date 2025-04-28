@@ -32,7 +32,7 @@ app.use(
 );
 
 // Scheduled task
-cron.schedule('25 12 * * *', async () => {
+cron.schedule('30 16 * * *', async () => {
   try {
     console.log('Running scheduled task...');
 
