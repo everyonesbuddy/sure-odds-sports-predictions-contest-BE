@@ -182,7 +182,10 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
             { new: true }
           );
           resolvedPicks.push(patchResponse);
-          console.log('Updated pick: ' + JSON.stringify(patchResponse));
+
+          process.env.NODE_ENV === 'development'
+            ? console.log('Updated pick: ' + JSON.stringify(patchResponse))
+            : console.log('succesful update');
         } catch (error) {
           console.log('Error updating row: ' + error);
         }
