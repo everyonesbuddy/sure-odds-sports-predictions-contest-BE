@@ -39,7 +39,24 @@ exports.createPick = catchAsync(async (req, res, next) => {
 
 exports.getUsersPicks = catchAsync(async (req, res, next) => {
   const username = req.body.username;
-  const docs = await Pickem1.find({ participantsUsername: username });
+  const docs = await Pickem1.find({
+    participantsUsername: username,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    results: docs.length,
+    docs,
+  });
+});
+
+exports.getUsersFilteredPicks = catchAsync(async (req, res, next) => {
+  const username = req.body.username;
+  const docs = await Pickem1.find({
+    participantsUsername: username,
+  }).select(
+    '+teamPicked +spreadLine +league +pickType +selectedGameId +email'
+  );
 
   res.status(200).json({
     status: 'success',
