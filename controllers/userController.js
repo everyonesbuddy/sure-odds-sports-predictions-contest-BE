@@ -25,3 +25,24 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   authController.createSendToken(user, 200, res);
 });
+
+exports.registerForContest = catchAsync(async (req, res, next) => {
+  const userId = req.user._id;
+
+  const { name, accessCodeUsed, startDate, endDate } = req.body;
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      $push: {
+        registeredContests: { name, accessCodeUsed, startDate, endDate },
+      },
+    },
+    { new: true, runValidators: true }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: user,
+  });
+});

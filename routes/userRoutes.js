@@ -9,6 +9,8 @@ router.use(authController.protect);
 
 router.route('/updatePassword').patch(userController.updatePassword);
 
+router.route('/register').post(userController.registerForContest);
+
 router.use(authController.restrictTo('admin'));
 
 router

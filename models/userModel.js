@@ -4,15 +4,15 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
 const contests = new mongoose.Schema({
-  id: {
+  name: {
     type: String,
-    required: [true, 'A Contest must have an id'],
   },
-  isPayed: {
-    type: Boolean,
-    default: false,
+  accessCodeUsed: {
+    type: String,
+    default: null,
   },
-  pick: Number,
+  startDate: Date,
+  endDate: Date,
 });
 
 const userSchema = new mongoose.Schema({
