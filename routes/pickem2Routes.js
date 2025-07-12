@@ -6,12 +6,15 @@ const router = express.Router();
 
 router
   .route('/getPicksForPredicter')
-  .patch(pickem2Controller.betPredictionResolver)
-  .get(pickem2Controller.getAllPicks);
+  .get(pickem2Controller.getAllPicks)
+  .patch(pickem2Controller.betPredictionResolver);
 
 router.use(authController.protect);
 
-router.route('/').post(pickem2Controller.createPick);
+router
+  .route('/')
+  .get(authController.restrictTo('admin'), pickem2Controller.getAllPicks)
+  .post(pickem2Controller.createPick);
 
 router.route('/user').post(pickem2Controller.getUsersPicks);
 

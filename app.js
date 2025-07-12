@@ -50,6 +50,24 @@ cron.schedule('0 6 * * *', async () => {
   }
 });
 
+cron.schedule('0 6 * * *', async () => {
+  try {
+    console.log('Running scheduled task...');
+
+    // Replace with your actual request
+    const response = await axios.patch(
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem2/getPicksForPredicter',
+      {
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
+      }
+    );
+
+    console.log('Request sent successfully:', response.data);
+  } catch (error) {
+    console.error('Error running scheduled task:', error.message);
+  }
+});
+
 // Routes
 app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/users', userRouter);
