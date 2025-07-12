@@ -74,7 +74,7 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
   const fetchPicks = async () => {
     try {
       return await axios.get(
-        `${pickem1Url}/api/v1/pickem2/getPicksForPredicter`
+        `${pickem1Url}/api/v1/pickem1/getPicksForPredicter`
       );
     } catch (error) {
       console.log(error);
