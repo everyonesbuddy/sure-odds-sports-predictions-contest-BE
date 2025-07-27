@@ -1,13 +1,13 @@
-const Pickem2 = require('../models/pickem2Model');
+const Pickem4 = require('../models/pickem4Model');
 const factoryController = require('./factoryController');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const axios = require('axios');
 
-exports.getAllPicks = factoryController.getAll(Pickem2);
+exports.getAllPicks = factoryController.getAll(Pickem4);
 
 exports.getAllFilteredPicks = catchAsync(async (req, res, next) => {
-  docs = await Pickem2.find();
+  docs = await Pickem4.find();
 
   res.status(200).json({
     status: 'success',
@@ -16,7 +16,7 @@ exports.getAllFilteredPicks = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getPick = factoryController.getOne(Pickem2);
+exports.getPick = factoryController.getOne(Pickem4);
 exports.createPick = catchAsync(async (req, res, next) => {
   if (!Array.isArray(req.body)) {
     return next(new AppError(400, 'Request has to be an array'));
@@ -26,7 +26,7 @@ exports.createPick = catchAsync(async (req, res, next) => {
 
   const resultPicks = await Promise.all(
     picks.map(async (pick) => {
-      return Pickem2.create(pick);
+      return Pickem4.create(pick);
     })
   );
 
@@ -39,7 +39,7 @@ exports.createPick = catchAsync(async (req, res, next) => {
 
 exports.getUsersPicks = catchAsync(async (req, res, next) => {
   const username = req.body.username;
-  const docs = await Pickem2.find({ participantsUsername: username });
+  const docs = await Pickem4.find({ participantsUsername: username });
 
   res.status(200).json({
     status: 'success',
@@ -50,7 +50,7 @@ exports.getUsersPicks = catchAsync(async (req, res, next) => {
 
 exports.getUsersUnfilteredPicks = catchAsync(async (req, res, next) => {
   const username = req.body.username;
-  const docs = await Pickem2.find({
+  const docs = await Pickem4.find({
     participantsUsername: username,
   }).select(
     '+teamPicked +spreadLine +league +pickType +selectedGameId +email'
@@ -64,7 +64,7 @@ exports.getUsersUnfilteredPicks = catchAsync(async (req, res, next) => {
 });
 
 exports.betPredictionResolver = catchAsync(async (req, res) => {
-  const pickem2Url = req.body.url; // Get the URL from the request body
+  const pickem4Url = req.body.url; // Get the URL from the request body
   const oddsApiTemplate =
     'https://api.the-odds-api.com/v4/sports/{league}/scores/?apiKey=402f2e4bba957e5e98c7e1a178393c8c&daysFrom=3&dateFormat=iso';
 
@@ -72,7 +72,7 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
   const fetchPicks = async () => {
     try {
       return await axios.get(
-        `${pickem2Url}/api/v1/pickem2/getPicksForPredicter`
+        `${pickem4Url}/api/v1/pickem4/getPicksForPredicter`
       );
     } catch (error) {
       console.log(error);
@@ -129,7 +129,7 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
 
       try {
         // Send PATCH request to update betResult
-        const patchResponse = await Pickem2.findByIdAndUpdate(
+        const patchResponse = await Pickem4.findByIdAndUpdate(
           pick._id,
           updateData,
           { new: true }
@@ -191,7 +191,7 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
         const updateData = { betResult: result };
 
         try {
-          const patchResponse = await Pickem2.findByIdAndUpdate(
+          const patchResponse = await Pickem4.findByIdAndUpdate(
             pick._id,
             updateData,
             { new: true }

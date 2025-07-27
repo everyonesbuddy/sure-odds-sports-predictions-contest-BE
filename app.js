@@ -9,6 +9,11 @@ const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
 const pickem1Router = require('./routes/pickem1Routes');
 const pickem2Router = require('./routes/pickem2Routes');
+const pickem3Router = require('./routes/pickem3Routes');
+const pickem4Router = require('./routes/pickem4Routes');
+const pickem5Router = require('./routes/pickem5Routes');
+const pickem6Router = require('./routes/pickem6Routes');
+const pickem7Router = require('./routes/pickem7Routes');
 const codeRouter = require('./routes/codeRoutes');
 const contestRouter = require('./routes/contestRoutes');
 const errController = require('./controllers/errController');
@@ -34,7 +39,7 @@ app.use(
 // Scheduled task
 cron.schedule('0 6 * * *', async () => {
   try {
-    console.log('Running scheduled task...');
+    console.log('Running Pickem 1...');
 
     // Replace with your actual request
     const response = await axios.patch(
@@ -52,7 +57,7 @@ cron.schedule('0 6 * * *', async () => {
 
 cron.schedule('0 6 * * *', async () => {
   try {
-    console.log('Running scheduled task...');
+    console.log('Running Pickem 2...');
 
     // Replace with your actual request
     const response = await axios.patch(
@@ -74,6 +79,11 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/pickem1', pickem1Router);
 app.use('/api/v1/pickem2', pickem2Router);
+app.use('/api/v1/pickem3', pickem3Router);
+app.use('/api/v1/pickem4', pickem4Router);
+app.use('/api/v1/pickem5', pickem5Router);
+app.use('/api/v1/pickem6', pickem6Router);
+app.use('/api/v1/pickem7', pickem7Router);
 app.use('/api/v1/codes', codeRouter);
 app.use('/api/v1/contests', contestRouter);
 

@@ -20,7 +20,7 @@ router.route('/user').post(pickem1Controller.getUsersPicks);
 
 router
   .route('/user/unfiltered')
-  .post(pickem1Controller.getUsersFilteredPicks);
+  .post(pickem1Controller.getUsersUnfilteredPicks);
 
 router.route('/filtered').get(pickem1Controller.getAllFilteredPicks);
 

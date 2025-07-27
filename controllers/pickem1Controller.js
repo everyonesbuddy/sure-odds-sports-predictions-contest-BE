@@ -50,7 +50,7 @@ exports.getUsersPicks = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUsersFilteredPicks = catchAsync(async (req, res, next) => {
+exports.getUsersUnfilteredPicks = catchAsync(async (req, res, next) => {
   const username = req.body.username;
   const docs = await Pickem1.find({
     participantsUsername: username,

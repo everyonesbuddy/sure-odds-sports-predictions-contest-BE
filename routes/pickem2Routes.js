@@ -18,6 +18,10 @@ router
 
 router.route('/user').post(pickem2Controller.getUsersPicks);
 
+router
+  .route('/user/unfiltered')
+  .post(pickem2Controller.getUsersUnfilteredPicks);
+
 router.route('/filtered').get(pickem2Controller.getAllFilteredPicks);
 
 router.route('/:id').get(pickem2Controller.getPick);
