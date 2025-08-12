@@ -145,7 +145,6 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
       isSixHoursOld(pick.gameCommenceTime) &&
       pick.betResult === null
     ) {
-      console.log('This is working');
       const league = pick.league;
       const gameId = pick.selectedGameId;
       const pickedTeam = pick.teamPicked;

@@ -5,6 +5,10 @@ const Code = require('../models/codeModel');
 const Pickem1 = require('../models/pickem1Model');
 const Pickem2 = require('../models/pickem2Model');
 const Pickem3 = require('../models/pickem3Model');
+const Pickem4 = require('../models/pickem4Model');
+const Pickem5 = require('../models/pickem5Model');
+const Pickem6 = require('../models/pickem6Model');
+const Pickem7 = require('../models/pickem7Model');
 const authController = require('./authController');
 
 const filterObj = (obj, ...unWantedProps) => {
@@ -20,7 +24,15 @@ exports.filterObj = filterObj;
 exports.getAll = (model) => {
   return catchAsync(async (req, res) => {
     let docs;
-    if (model === Pickem1 || model === Pickem2 || model === Pickem3) {
+    if (
+      model === Pickem1 ||
+      model === Pickem2 ||
+      model === Pickem3 ||
+      model === Pickem4 ||
+      model === Pickem5 ||
+      model === Pickem6 ||
+      model === Pickem7
+    ) {
       docs = await model
         .find()
         .select(
