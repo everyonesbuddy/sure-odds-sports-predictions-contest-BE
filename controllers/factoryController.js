@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const Code = require('../models/codeModel');
 const Pickem1 = require('../models/pickem1Model');
 const Pickem2 = require('../models/pickem2Model');
+const Pickem3 = require('../models/pickem3Model');
 const authController = require('./authController');
 
 const filterObj = (obj, ...unWantedProps) => {
@@ -19,7 +20,7 @@ exports.filterObj = filterObj;
 exports.getAll = (model) => {
   return catchAsync(async (req, res) => {
     let docs;
-    if (model === Pickem1 || model === Pickem2) {
+    if (model === Pickem1 || model === Pickem2 || model === Pickem3) {
       docs = await model
         .find()
         .select(

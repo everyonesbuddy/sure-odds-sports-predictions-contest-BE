@@ -86,9 +86,9 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
   const resolvedPicks = [];
 
   for (const [index, pick] of picks.entries()) {
-    console.log('pickType: ' + pick.pickType);
-    console.log('isSixHoursOld: ' + isSixHoursOld(pick.gameCommenceTime));
-    console.log('betResults: ' + pick.betResult);
+    // console.log('pickType: ' + pick.pickType);
+    // console.log('isSixHoursOld: ' + isSixHoursOld(pick.gameCommenceTime));
+    // console.log('betResults: ' + pick.betResult);
 
     if (
       pick.pickType === 'money line' &&
@@ -145,6 +145,7 @@ exports.betPredictionResolver = catchAsync(async (req, res) => {
       isSixHoursOld(pick.gameCommenceTime) &&
       pick.betResult === null
     ) {
+      console.log('This is working');
       const league = pick.league;
       const gameId = pick.selectedGameId;
       const pickedTeam = pick.teamPicked;
