@@ -30,49 +30,81 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || [
-      'https://hexon-data.com',
-    ],
+    origin: '*',
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
   })
 );
 
-const baseUrl = process.env.API_BASE_URL;
-
-const runPickemTask = async (endpoint) => {
-  try {
-    const response = await axios.patch(`${baseUrl}/${endpoint}`, {
-      url: baseUrl,
-    });
-    console.log(`${endpoint} success:`, response.data);
-  } catch (error) {
-    console.error(`${endpoint} failed:`, error.message);
-  }
-};
-
 // Scheduled task
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem1/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem2/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem3/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem4/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem5/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem6/getPicksForPredicter')
-);
-cron.schedule('0 6 * * *', () =>
-  runPickemTask('pickem7/getPicksForPredicter')
-);
+cron.schedule('0 6 * * *', async () => {
+  try {
+    console.log('Running Pickem 1...');
+
+    const response = await axios.patch(
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem1/getPicksForPredicter',
+      {
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
+      }
+    );
+
+    console.log('Request sent successfully:', response.data);
+  } catch (error) {
+    console.error('Error running scheduled task:', error.message);
+  }
+});
+
+cron.schedule('0 6 * * *', async () => {
+  try {
+    console.log('Running Pickem 2...');
+
+    const response = await axios.patch(
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem2/getPicksForPredicter',
+      {
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
+      }
+    );
+
+    console.log('Request sent successfully:', response.data);
+  } catch (error) {
+    console.error('Error running scheduled task:', error.message);
+  }
+});
+
+cron.schedule('0 6 * * *', async () => {
+  try {
+    console.log('Running Pickem 3...');
+
+    const response = await axios.patch(
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem3/getPicksForPredicter',
+      {
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
+      }
+    );
+
+    console.log('Request sent successfully:', response.data);
+  } catch (error) {
+    console.error('Error running scheduled task:', error.message);
+  }
+});
+
+cron.schedule('0 6 * * *', async () => {
+  try {
+    console.log('Running Pickem 4...');
+
+    const response = await axios.patch(
+      'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem4/getPicksForPredicter',
+      {
+        url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
+      }
+    );
+
+    console.log('Request sent successfully:', response.data);
+  } catch (error) {
+    console.error('Error running scheduled task:', error.message);
+  }
+});
+
 // Routes
 app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/users', userRouter);
@@ -94,71 +126,3 @@ app.use('*', (req, res) => {
 });
 
 module.exports = app;
-
-// cron.schedule('0 6 * * *', async () => {
-//   try {
-//     console.log('Running Pickem 1...');
-
-//     const response = await axios.patch(
-//       'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem1/getPicksForPredicter',
-//       {
-//         url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
-//       }
-//     );
-
-//     console.log('Request sent successfully:', response.data);
-//   } catch (error) {
-//     console.error('Error running scheduled task:', error.message);
-//   }
-// });
-
-// cron.schedule('0 6 * * *', async () => {
-//   try {
-//     console.log('Running Pickem 2...');
-
-//     const response = await axios.patch(
-//       'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem2/getPicksForPredicter',
-//       {
-//         url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
-//       }
-//     );
-
-//     console.log('Request sent successfully:', response.data);
-//   } catch (error) {
-//     console.error('Error running scheduled task:', error.message);
-//   }
-// });
-
-// cron.schedule('0 6 * * *', async () => {
-//   try {
-//     console.log('Running Pickem 3...');
-
-//     const response = await axios.patch(
-//       'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem3/getPicksForPredicter',
-//       {
-//         url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
-//       }
-//     );
-
-//     console.log('Request sent successfully:', response.data);
-//   } catch (error) {
-//     console.error('Error running scheduled task:', error.message);
-//   }
-// });
-
-// cron.schedule('0 6 * * *', async () => {
-//   try {
-//     console.log('Running Pickem 4...');
-
-//     const response = await axios.patch(
-//       'https://sure-odds-be-482948f2bda5.herokuapp.com/api/v1/pickem4/getPicksForPredicter',
-//       {
-//         url: 'https://sure-odds-be-482948f2bda5.herokuapp.com',
-//       }
-//     );
-
-//     console.log('Request sent successfully:', response.data);
-//   } catch (error) {
-//     console.error('Error running scheduled task:', error.message);
-//   }
-// });
