@@ -16,6 +16,7 @@ const pickem6Router = require('./routes/pickem6Routes');
 const pickem7Router = require('./routes/pickem7Routes');
 const codeRouter = require('./routes/codeRoutes');
 const contestRouter = require('./routes/contestRoutes');
+const paymentRouter = require('./routes/paymentRoutes');
 const errController = require('./controllers/errController');
 
 const app = express();
@@ -24,7 +25,19 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(express.json({ limit: '5mb' }));
+// app.use(express.json({ limit: '5mb' }));
+
+// ✅ JSON parser with Stripe webhook-safe verification
+app.use(
+  express.json({
+    limit: '5mb',
+    verify: (req, res, buf) => {
+      if (req.originalUrl.startsWith('/api/v1/payments/webhook')) {
+        req.rawBody = buf.toString();
+      }
+    },
+  })
+);
 
 app.use(cookieParser());
 
@@ -118,6 +131,7 @@ app.use('/api/v1/pickem6', pickem6Router);
 app.use('/api/v1/pickem7', pickem7Router);
 app.use('/api/v1/codes', codeRouter);
 app.use('/api/v1/contests', contestRouter);
+app.use('/api/v1/payments', paymentRouter);
 
 app.use(errController);
 
