@@ -41,13 +41,17 @@ app.use(
 
 app.use(cookieParser());
 
+// ✅ CORS configuration
 app.use(
   cors({
-    origin: '*',
+    origin: ['https://sure-odds.com'], // allow only your frontend
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
-    credentials: true,
+    credentials: true, // now valid because origin is explicit
   })
 );
+
+// Preflight handler for OPTIONS requests
+app.options('*', cors());
 
 // Scheduled task
 cron.schedule('0 6 * * *', async () => {
