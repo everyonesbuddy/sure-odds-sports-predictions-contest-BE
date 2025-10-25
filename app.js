@@ -44,7 +44,7 @@ app.use(cookieParser());
 // ✅ CORS configuration
 app.use(
   cors({
-    origin: ['https://sure-odds.com'], // allow only your frontend
+    origin: 'https://sure-odds.com', // allow only your frontend
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true, // now valid because origin is explicit
   })
