@@ -1,6 +1,7 @@
 const Stripe = require('stripe');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
+const { validate } = require('node-cron');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -95,6 +96,7 @@ exports.handleStripeWebhook = async (req, res) => {
       );
 
       if (!alreadyRegistered) {
+        console.log('dsjvchjsvhsdvhjsdbvhdsb');
         user.registeredContests.push({
           name: contestName,
           accessCodeUsed: `STRIPE-${Date.now()}`,
@@ -102,7 +104,7 @@ exports.handleStripeWebhook = async (req, res) => {
           endDate: new Date(endDate),
         });
 
-        await user.save();
+        await user.save({ validateBeforeSave: false });
         console.log(`✅ Added "${contestName}" to ${user.email}`);
       } else {
         console.log(
