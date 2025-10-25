@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cron = require('node-cron');
 const axios = require('axios');
-const paymentController = require('./controllers/paymentController');
 const adminRouter = require('./routes/adminRoutes');
 const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
@@ -29,17 +28,14 @@ if (process.env.NODE_ENV === 'development') {
 // app.use(express.json({ limit: '5mb' }));
 
 // ✅ JSON parser with Stripe webhook-safe verification
-// ⚠️ Place the Stripe webhook BEFORE express.json() middleware
-app.post(
-  '/api/v1/payments/webhook',
-  express.raw({ type: 'application/json' }),
-  paymentController.handleStripeWebhook
-);
-
-// ✅ Now safe to parse JSON for all other routes
 app.use(
   express.json({
     limit: '5mb',
+    verify: (req, res, buf) => {
+      if (req.originalUrl.startsWith('/api/v1/payments/webhook')) {
+        req.rawBody = buf.toString();
+      }
+    },
   })
 );
 
