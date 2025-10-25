@@ -43,7 +43,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: '*',
+    origin: 'https://sure-odds.com',
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
   })

@@ -1,6 +1,5 @@
 const Stripe = require('stripe');
 const User = require('../models/userModel');
-const Contest = require('../models/contestModel');
 const catchAsync = require('../utils/catchAsync');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
@@ -24,6 +23,7 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     });
   }
 
+  // ✅ Create Stripe session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
@@ -59,7 +59,7 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-// ✅ Stripe Webhook
+// ✅ Handle Stripe Webhook
 exports.handleStripeWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
 
@@ -78,7 +78,7 @@ exports.handleStripeWebhook = async (req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // ✅ Handle payment completion
+  // ✅ Payment completed
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const { userId, contestName, startDate, endDate } = session.metadata;
@@ -90,19 +90,13 @@ exports.handleStripeWebhook = async (req, res) => {
         return res.status(200).json({ received: true });
       }
 
-      const contest = await Contest.findOne({ name: contestName });
-      if (!contest) {
-        console.error('❌ Contest not found:', contestName);
-        return res.status(200).json({ received: true });
-      }
-
       const alreadyRegistered = user.registeredContests.some(
         (c) => c.name === contestName
       );
 
       if (!alreadyRegistered) {
         user.registeredContests.push({
-          name: contest.name,
+          name: contestName,
           accessCodeUsed: `STRIPE-${Date.now()}`,
           startDate: new Date(startDate),
           endDate: new Date(endDate),
