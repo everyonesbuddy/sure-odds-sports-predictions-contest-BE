@@ -11,6 +11,9 @@ router.route('/updatePassword').patch(userController.updatePassword);
 
 router.route('/register').post(userController.registerForContest);
 
+// Get current logged-in user used for refreshing user data
+router.route('/me').get(userController.getMe);
+
 router.use(authController.restrictTo('admin'));
 
 router
