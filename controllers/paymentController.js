@@ -1,5 +1,6 @@
 const Stripe = require('stripe');
 const User = require('../models/userModel');
+const Contest = require('../models/contestModel');
 const catchAsync = require('../utils/catchAsync');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
@@ -15,7 +16,6 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     });
   }
 
-  // Ensure price is a number
   const priceInNaira = Number(price);
   if (isNaN(priceInNaira)) {
     return res.status(400).json({
@@ -30,11 +30,11 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
     line_items: [
       {
         price_data: {
-          currency: 'ngn', // Naira
+          currency: 'ngn',
           product_data: {
-            name: `Entry for ${contestName} (₦${priceInNaira})`,
+            name: `Entry for ${contestName}`,
           },
-          unit_amount: Math.round(priceInNaira * 100), // NGN → kobo
+          unit_amount: Math.round(priceInNaira * 100),
         },
         quantity: 1,
       },
@@ -59,11 +59,11 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-// ✅ Stripe Webhook — triggered when payment is successful
+// ✅ Stripe Webhook
 exports.handleStripeWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
-  let event;
 
+  let event;
   try {
     event = stripe.webhooks.constructEvent(
       req.body,
@@ -78,29 +78,45 @@ exports.handleStripeWebhook = async (req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  // ✅ Handle payment completion
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const { userId, contestName, startDate, endDate } = session.metadata;
 
     try {
       const user = await User.findById(userId);
-      if (user) {
-        // ✅ Add contest with a placeholder access code
-        const newContest = {
-          name: contestName,
-          accessCodeUsed: `STRIPE-${Date.now()}`, // Placeholder value
+      if (!user) {
+        console.error('❌ User not found:', userId);
+        return res.status(200).json({ received: true });
+      }
+
+      const contest = await Contest.findOne({ name: contestName });
+      if (!contest) {
+        console.error('❌ Contest not found:', contestName);
+        return res.status(200).json({ received: true });
+      }
+
+      const alreadyRegistered = user.registeredContests.some(
+        (c) => c.name === contestName
+      );
+
+      if (!alreadyRegistered) {
+        user.registeredContests.push({
+          name: contest.name,
+          accessCodeUsed: `STRIPE-${Date.now()}`,
           startDate: new Date(startDate),
           endDate: new Date(endDate),
-        };
+        });
 
-        user.registeredContests.push(newContest);
         await user.save();
+        console.log(`✅ Added "${contestName}" to ${user.email}`);
+      } else {
         console.log(
-          `✅ Contest "${contestName}" added for user ${user.email}`
+          `ℹ️ User ${user.email} already registered for "${contestName}"`
         );
       }
     } catch (err) {
-      console.error('Error updating user after payment:', err.message);
+      console.error('🔥 Error updating user registration:', err.message);
     }
   }
 
